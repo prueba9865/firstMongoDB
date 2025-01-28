@@ -1,6 +1,6 @@
 // Using Node.js `require()`
 require('dotenv').config()
-const ordenador = require("./entities/Ordenador.js")
+const Ordenador = require("./entities/Ordenador.js")
 
 
-ordenador.buscarTodos()
+Ordenador.buscarTodos()
