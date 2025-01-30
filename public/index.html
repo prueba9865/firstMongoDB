@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla de Ordenadores</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <button id="obtenerOrdenadores">Obtener todos los ordenadores</button>
+    <h1>Lista de Ordenadores</h1>
+    <table id="tabla">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Marca</th>
+                <th>Precio</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <script>
+        document.getElementById("obtenerOrdenadores").addEventListener("click", () => {
+            fetch("/items")
+                .then(response => {
+                    return response.json();
+                })
+                .then(data => {
+                    let tabla = document.getElementById("tabla");
+                    let tbody = tabla.querySelector("tbody");
+                    tbody.innerHTML = ''; // Limpiar el contenido previo de la tabla
+    
+                    // Si "data" es un array de ordenadores, recorrerlo
+                    data.forEach(ordenador => {
+                        let tr = document.createElement("tr");
+                        tbody.appendChild(tr);
+    
+                        tr.innerHTML = `
+                            <td>${ordenador._id}</td>
+                            <td>${ordenador.marca}</td>
+                            <td>${ordenador.precio}</td>
+                        `;
+                    });
+                })
+                .catch(err => {
+                    console.error(err);
+                });
+        });
+    </script>
+    
+</body>
+</html>

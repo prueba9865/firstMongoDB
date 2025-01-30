@@ -51,15 +51,19 @@ class Ordenador {
 
     // Buscar por ID
     static buscarPorId(id) {
-        OrdenadorModel.findById(id)
+        return OrdenadorModel.findById(id)
             .then(ordenador => {
                 if (ordenador) {
                     console.log('Ordenador encontrado', ordenador);
+                    return ordenador;
                 } else {
                     console.log('No se encontró ningún registro');
                 }
             })
-            .catch(err => console.error('Error al obtener el ordenador', err));
+            .catch(err => {
+                console.error('Error al obtener el ordenador', err);
+                throw err;
+            });
     }
 
     // Buscar por precio mayor a un valor

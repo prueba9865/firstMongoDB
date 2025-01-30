@@ -24,20 +24,20 @@ app.get("/items", (req, res) => {
     res.json(ordenadores);
   })
   .catch(err => {
-    res.status("500").json({"error": err})
+    res.status("500").json({"error": err});
   })
 });
 
 
 // Obtener un ítem por ID
 app.get("/items/:id", (req, res) => {
-  const itemId = parseInt(req.params.id);
-  const item = items.find((i) => i.id === itemId);
-  if (item) {
-    res.json(item);
-  } else {
-    res.status(404).json({ message: "Ítem no encontrado" });
-  }
+  Ordenador.buscarPorId(req.params.id)
+  .then(ordenador => {
+    res.json(ordenador);
+  })
+  .catch(err => {
+    res.status("500").json({"error": err});
+  })
 });
 
 
