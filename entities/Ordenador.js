@@ -33,15 +33,20 @@ class Ordenador {
 
     // Buscar todos los ordenadores
     static buscarTodos() {
-        OrdenadorModel.find()
+        return OrdenadorModel.find()
             .then(ordenadores => {
                 if (ordenadores.length > 0) {
                     console.log('Ordenadores encontrados', ordenadores);
+                    return ordenadores;
                 } else {
                     console.log('No se encontró ningún registro');
+                    return null;
                 }
             })
-            .catch(err => console.error('Error al obtener los ordenadores', err));
+            .catch(err => {
+                console.error('Error al obtener los ordenadores', err);
+                throw err;
+            });
     }
 
     // Buscar por ID

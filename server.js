@@ -1,4 +1,6 @@
+require('dotenv').config()
 const express = require("express");
+const Ordenador = require("./entities/Ordenador.js")
 const app = express();
 const port = 3000;
 
@@ -17,7 +19,13 @@ let items = [
 
 // Obtener todos los ítems
 app.get("/items", (req, res) => {
-  res.json(items);
+  Ordenador.buscarTodos()
+  .then(ordenadores => {
+    res.json(ordenadores);
+  })
+  .catch(err => {
+    res.status("500").json({"error": err})
+  })
 });
 
 
